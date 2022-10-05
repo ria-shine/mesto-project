@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+
+  <header class="header">
+    <img class="header__logo" src="./images/logo.png" alt="Логотип проекта">
+  </header>
+
+<main class="main-content">
+
+  <section class="profile">
+    <img class="profile__avatar" src="./images/Avatar.jpg" alt="аватар">
+    <!-- Имя и описание к имени -->
+    <div class="profile__info">
+      <div class="profile__name-content">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <!-- кнопка Редактировать информацию о себе -->
+        <button class="profile__edit-button"><img class="profile__edit-button-pencil" src="./images/pencil-for-button.png"
+            alt=""></button>
+      </div>
+      <p class="profile__description">Исследователь океана</p>
+    </div>
+    <!-- кнопка Добавить -->
+    <button class="profile__button"><img class="profile__button-plus" src='./images/plus-for-button.png'></button>
+  </section>
+  
+  <!-- elements -->
+  <section class="elements">
+    <div class="element">
+      <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+      
+      <div class="element__container">
+        <h2 class="element__heading">Карачаевск</h2>
+        <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+
+    <div class="element">
+      <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
+      
+      <div class="element__container">
+        <h2 class="element__heading">Гора Эльбрус</h2>
+      <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+
+    <div class="element">
+      <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
+    
+      <div class="element__container">
+        <h2 class="element__heading">Домбай</h2>
+        <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+    
+    <div class="element">
+      <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
+    
+      <div class="element__container">
+        <h2 class="element__heading">Гора Эльбрус</h2>
+        <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+    
+    <div class="element">
+      <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
+    
+      <div class="element__container">
+        <h2 class="element__heading">Домбай</h2>
+        <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+    
+    <div class="element">
+      <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
+
+      <div class="element__container">
+        <h2 class="element__heading">Карачаево-Черкесия</h2>
+        <img class="like" src="./images/like_disabled.svg">
+      </div>
+    </div>
+  </section>
+
+    <!-- добавить модификатор popup_opened -->
+  <div class="popup"> 
+    <form class="popup__container">
+      <div class="close-icon">
+        <img class="close-icon__image" src="./images/Close Icon.svg">
+      </div>
+  
+      <h2 class="popup__title">Редактировать профиль</h2>
+  
+      <input class="popup__input" type='text' name="firstname" value="Жак-Ив Кусто">
+      <input class="popup__input" type='text' name="description" value="Исследователь океана">
+  
+      <button class="popup__button">Сохранить</button>
+  
+    </form>
+  </div>
+
+</main>
+
+  <!-- footer -->
+  <footer class="footer">
+    <h4 class="footer__heading">&copy; 2020 Mesto Russia</h4>
+  </footer>
+
+
+  
+</body>
+</html>
