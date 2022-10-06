@@ -1,21 +1,21 @@
 .profile__description {
-    margin: 0;
-    color: white;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 21.78px;
-  }
+  margin: 0;
+  color: white;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 282px;
+}
   
-  @media screen and (max-width: 768px) {
-    .profile__description {
-      font-size: 14px;
-      line-height: auto;
-    }
+@media screen and (max-width: 768px) {
+  .profile__description {
+    font-size: 14px;
+    line-height: auto;
+    text-align: center;
+
   }
+}
   
-  @media screen and (max-width: 320px) {
-    .profile__description {
-      font-size: 14px;
-      line-height: auto;
-    }
-  }
