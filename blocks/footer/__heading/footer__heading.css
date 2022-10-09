@@ -3,12 +3,13 @@
   color: #545454;
   font-weight: 400;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 21.78px;
 }
   
 @media screen and (max-width: 320px) {
   .footer__heading {
     font-size: 14px;
-    line-height: auto;
+    line-height: 16.94px;
+
   }
 }

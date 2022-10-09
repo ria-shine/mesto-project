@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mesto</title>
+  <title>Место</title>
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
 
   <header class="header">
-    <img class="header__logo" src="./images/logo.png" alt="Логотип проекта">
+    <img class="header__logo" src="./images/logooo.svg" alt="Логотип проекта">
   </header>
 
   <main class="main-content">
@@ -19,90 +19,85 @@
       <img class="profile__avatar" src="./images/Avatar.jpg" alt="аватар">
       <!-- Имя и описание к имени -->
       <div class="profile__info">
-        <div class="profile__name-content">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <!-- кнопка Редактировать информацию о себе -->
-          <button class="profile__edit-button" type="button"></button>
-        </div>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <!-- кнопка Редактировать информацию о себе -->
+        <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         <p class="profile__description">Исследователь океана</p>
       </div>
       <!-- кнопка Добавить -->
-      <button class="profile__button" type="button"></button>
+      <button class="profile__button" type="button" aria-label="Добавить новое фото"></button>
     </section>
 
     <!-- elements -->
     <section class="elements">
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
         <div class="element__container">
           <h2 class="element__heading">Карачаевск</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
 
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
         <div class="element__container">
           <h2 class="element__heading">Гора Эльбрус</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
 
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
         <div class="element__container">
           <h2 class="element__heading">Домбай</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
 
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
         <div class="element__container">
           <h2 class="element__heading">Гора Эльбрус</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
 
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/dombay.jpg" alt="Домбай">
         <div class="element__container">
           <h2 class="element__heading">Домбай</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
 
-      <div class="element">
+      <article class="element">
         <img class="element__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
         <div class="element__container">
           <h2 class="element__heading">Карачаево-Черкесия</h2>
-          <button class="like" type="button"></button>
+          <button class="element__like" type="button" aria-label="Оценить"></button>
         </div>
-      </div>
+      </article>
     </section>
-
-    <!-- добавить модификатор popup_opened -->
-    <div class="popup">
-      <div class="popup__container">
-        <button class="close-icon"></button>
-
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form>
-          <input class="popup__input" type='text' name="firstname" value="Жак-Ив Кусто">
-          <input class="popup__input" type='text' name="description" value="Исследователь океана">
-          <button class="popup__button" type="submit">Сохранить</button>
-        </form>
-      </div>
-    </div>
-
   </main>
 
   <!-- footer -->
   <footer class="footer">
-    <h4 class="footer__heading">&copy; 2020 Mesto Russia</h4>
+    <p class="footer__heading">&copy; 2020 Mesto Russia</p>
   </footer>
 
-
+  <!-- добавить модификатор popup_opened -->
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования"></button>
+  
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form name="profile_form">
+        <input class="popup__input" type='text' name="firstname" value="Жак-Ив Кусто">
+        <input class="popup__input" type='text' name="description" value="Исследователь океана">
+        <button class="popup__button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>
