@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
+  <link rel="shortcut icon" href="./images/favicon.ico.png">
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
@@ -85,19 +86,33 @@
     <p class="footer__heading">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <!-- добавить модификатор popup_opened -->
-  <div class="popup">
+  <!-- попап редактирвоания профиля -->
+  <div class="popup popup_edit-profile">
     <div class="popup__container">
-      <button class="popup__close-icon" type="button" aria-label="Закрыть окно редактирования"></button>
+      <button class="popup__close-icon popup__close-icon_edit-profile" type="button" aria-label="Закрыть окно редактирования"></button>
   
       <h2 class="popup__title">Редактировать профиль</h2>
       <form name="profile_form">
-        <input class="popup__input" type='text' name="firstname" value="Жак-Ив Кусто">
-        <input class="popup__input" type='text' name="description" value="Исследователь океана">
-        <button class="popup__button" type="submit">Сохранить</button>
+        <input class="popup__input name_input" type='text' name="firstname" value="Жак-Ив Кусто">
+        <input class="popup__input job_input" type='text' name="description" value="Исследователь океана">
+        <button class="popup__button submit_button" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
 
+  <div class="popup popup_add-card">
+    <div class="popup__container">
+      <button class="popup__close-icon popup__close-icon_add-card" type="button" aria-label="Закрыть окно добавление фото"></button>
+  
+      <h2 class="popup__title">Новое место</h2>
+      <form name="profile_form">
+        <input class="popup__input" type='text' name="firstname" placeholder="Название">
+        <input class="popup__input" type='text' name="description" placeholder="Ссылка на картинку">
+        <button class="popup__button" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+
+<script src="./index.js"></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+
+.like {
+    width: 22px;
+    height: 19px;
+    cursor: pointer;
+    
+  }
+  
+  .like:hover {
+    opacity: 0.5;
+  }
+
+.element__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 21px 20px 31px 21px;
+}
