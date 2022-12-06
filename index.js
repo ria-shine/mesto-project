@@ -1,48 +1,96 @@
-console.log('hello');
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+  ];
 
-// Открыть/закрыть попап редактирования
 
-let profileEditButton = document.querySelector('.profile__edit-button');
-let popupEditProfile = document.querySelector('.popup_edit-profile');
-let closeIconEditProfileButton = document.querySelector('.popup__close-icon_edit-profile');
-
-function openPopupEditProfile() {
-  popupEditProfile.classList.add('popup_edit-profile');
-
-};
-
-function closePopupEditProfile() {
-  popupEditProfile.classList.remove('popup_edit-profile');
-};
-
-profileEditButton.addEventListener('click', openPopupEditProfile);
-closeIconEditProfileButton.addEventListener('click', closePopupEditProfile);
-
-
-// открыть/закрыть окно добавления фото
-
-let profileButton = document.querySelector('.profile__button');
-let closeIconAddCardButton = document.querySelector('.popup__close-icon_add-card');
-let popupAddCard = document.querySelector('.popup_add-card');
-
-function openPopupAddCard() {
-  popupAddCard.classList.add('popup_add-card');
-};
-
-function closePopupAddCard() {
-  popupAddCard.classList.remove('popup_add-card');
-};
-
-profileButton.addEventListener('click', openPopupAddCard);
-closeIconAddCardButton.addEventListener('click', closePopupAddCard);
-
-// форма отправки для попапа редактирования профиля
+const profileEditButton = document.querySelector('.profile__edit-button');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
+const closeIconEditProfileButton = document.querySelector('.popup__close-icon_edit-profile');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__description');
+const formElement = document.querySelector('.form_element');
 const submitButton = document.querySelector('.submit_button');
 const nameInput = document.querySelector('.name_input');
 const jobInput = document.querySelector('.job_input');
 
-let profileName = document.querySelector('.profile__name');
-let profileJob = document.querySelector('.profile__description');
+const profileButton = document.querySelector('.profile__button');
+const closeIconAddCardButton = document.querySelector('.popup__close-icon_add-card');
+const popupAddCard = document.querySelector('.popup_add-card');
+const formNewCard = document.querySelector('.form_new-card');
+const createButton = document.querySelector('.create_button');
+const cardInput = document.querySelector('.card_input[name = card-name]');
+const linkInput = document.querySelector('.link_input[name = card-link]');
+
+const elementsContainer = document.querySelector('.elements');
+const templateCard = document.querySelector('#template-card').content;
+
+const popupOpenedImage = document.querySelector('.popup_opened-image');
+const popupImage = document.querySelector('.popup__image');
+const closeIconOpenedImage = document.querySelector('.popup__close-image');
+const caption = document.querySelector('.popup__caption');
+
+
+// общие функции открытия и закрытия попапов
+function openPopup(selectedPopup) {
+  selectedPopup.classList.add('popup_opened');
+}
+
+function closePopup(selectedPopup) {
+  selectedPopup.classList.remove('popup_opened');
+}
+// Открыть/закрыть попап редактирования
+
+profileEditButton.addEventListener('click', () => {
+  openPopup(popupEditProfile);
+});
+closeIconEditProfileButton.addEventListener('click', () => {
+  closePopup(popupEditProfile);
+});
+
+// открыть/закрыть окно добавления фото
+
+profileButton.addEventListener('click', () => {
+  openPopup(popupAddCard);
+});
+closeIconAddCardButton.addEventListener('click', () => {
+  closePopup(popupAddCard);
+});
+
+// закрыть фото
+
+closeIconOpenedImage.addEventListener('click', () => {
+  closePopup(popupOpenedImage);
+});
+
+// лайк
+function like(evt) {
+  evt.target.classList.toggle('element__like_active');
+}
+
+// отправить новые данные профиля
 
 function formSubmitHandler (evt) {
   
@@ -50,10 +98,55 @@ function formSubmitHandler (evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
+  closePopup(popupEditProfile);
+
 }
-submitButton.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', formSubmitHandler);
+
+// добавление карточки
+function downloadCards() {
+  initialCards.forEach(function(card) {
+    elementsContainer.prepend(addCard(card.name, card.link))
+  });
+}
+downloadCards();
+
+function addCard(name, link) {
+  const card = templateCard.querySelector('.element').cloneNode(true);
+  const elementImage = card.querySelector('.element__image');
+  const elementHeading = card.querySelector('.element__heading');
+  elementImage.src = link;
+  elementImage.alt = name;
+  elementHeading.textContent = name;
+
+  card.querySelector('.element__like').addEventListener('click', like);
+
+  const removeBtn = card.querySelector('.element__remove');
+  function deleteCard() {
+    const elementCard = removeBtn.closest('.element');
+    elementCard.remove();
+  }
+  card.querySelector('.element__remove').addEventListener('click', deleteCard);
+
+  function openImage() {
+    openPopup(popupOpenedImage);
+    popupImage.src = link;
+    popupImage.alt = name;
+    caption.textContent = name;
+
+  };
+  elementImage.addEventListener('click', openImage);
+
+  return card;
+}
 
 
-closePopupAddCard(); // чтобы закрыть попап добавления нового фото 
+
+function formCreateHandler (evt) {
+  evt.preventDefault();
+  elementsContainer.prepend(addCard(cardInput.value, linkInput.value));
+  closePopup(popupAddCard);
+}
+formNewCard.addEventListener('submit', formCreateHandler);
 
 
