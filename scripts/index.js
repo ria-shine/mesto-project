@@ -64,7 +64,7 @@ function like(evt) {
 
 // отправить новые данные профиля
 
-function SubmitFormProfile (evt) {
+function submitFormProfile (evt) {
   
   evt.preventDefault(); 
   profileName.textContent = nameInput.value;
