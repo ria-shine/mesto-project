@@ -73,7 +73,7 @@ function submitFormProfile (evt) {
   closePopup(popupEditProfile);
 
 }
-formElement.addEventListener('submit', SubmitFormProfile);
+formElement.addEventListener('submit', submitFormProfile);
 
 // удалить карточку
 
