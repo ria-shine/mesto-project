@@ -5,9 +5,9 @@
   outline: none;
   font-size: 14px;
   line-height: 16.94px;
-  margin-bottom: 27px;
   padding: 0;
   padding-bottom: 12px;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 530px) {
