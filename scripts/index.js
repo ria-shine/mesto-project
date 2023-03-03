@@ -35,28 +35,40 @@ function openPopup(selectedPopup) {
 function closePopup(selectedPopup) {
   selectedPopup.classList.remove('popup_opened');
 }
-// Открыть/закрыть попап редактирования
+
+// Открыть попап редактирования
 
 buttonEditProfile.addEventListener('click', () => {
   openPopup(popupEditProfile);
 });
-buttonClosePopupProfile.addEventListener('click', () => {
-  closePopup(popupEditProfile);
-});
 
-// открыть/закрыть окно добавления фото
+// открыть окно добавления фото
 
 profileButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
-buttonClosePopupAddCard.addEventListener('click', () => {
-  closePopup(popupAddCard);
-});
 
-// закрыть фото
+//  закрытие попапов на крестик, оверлей и escape
 
-closeIconOpenedImage.addEventListener('click', () => {
-  closePopup(popupOpenedImage);
+const closeBtns = document.querySelectorAll('.popup__close-icon');
+
+closeBtns.forEach((button) => {
+  const selectedPopup = button.closest('.popup');
+  button.addEventListener('click', () => {
+    closePopup(selectedPopup);
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.keyCode === 27) {
+      closePopup(selectedPopup);
+    };
+  });
+
+  document.addEventListener('click', (evt) => {
+    if (evt.target.classList.remove('popup_opened')) {
+      closePopup(selectedPopup);
+    };
+  });
 });
 
 // лайк
@@ -140,11 +152,19 @@ const hideInputError = (formElement, inputElement) => {
 };
 
 const isValid = (formElement, inputElement) => {
+  if (inputElement.validity.patternMismatch) {
+    
+    inputElement.setCustomValidity(inputElement.dataset.errorMsg);
+  } else {
+    
+    inputElement.setCustomValidity("");
+  }
+
   if (!inputElement.validity.valid) {
-    // Если поле не проходит валидацию, покажем ошибку
+    
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    // Если проходит, скроем
+  
     hideInputError(formElement, inputElement);
   }
 };
