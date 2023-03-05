@@ -76,18 +76,27 @@ function like(evt) {
   evt.target.classList.toggle('element__like_active');
 }
 
+
 // отправить новые данные профиля
 
-function submitFormProfile (evt) {
-  
+formElement.addEventListener('submit', (evt) => {
   evt.preventDefault(); 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  closePopup(popupEditProfile);
+  // setSubmitButtonState(false);
+  formElement.reset();
 
-}
-formElement.addEventListener('submit', submitFormProfile);
+  closePopup(popupEditProfile);
+});
+
+
+
+formElement.addEventListener('submit', () => {
+
+  const isValid = nameInput.value.length > 2 && jobInput.value.length > 2;
+  setSubmitButtonState(isValid);
+})
 
 // удалить карточку
 
@@ -153,18 +162,14 @@ const hideInputError = (formElement, inputElement) => {
 
 const isValid = (formElement, inputElement) => {
   if (inputElement.validity.patternMismatch) {
-    
     inputElement.setCustomValidity(inputElement.dataset.errorMsg);
   } else {
-    
     inputElement.setCustomValidity("");
   }
 
   if (!inputElement.validity.valid) {
-    
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-  
     hideInputError(formElement, inputElement);
   }
 };
@@ -174,12 +179,35 @@ const isValid = (formElement, inputElement) => {
 const setEventListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
 
+  const submitButton = formElement.querySelector('.popup__button');
+  toggleButtonState(inputList, submitButton);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       isValid(formElement, inputElement);
+      toggleButtonState(inputList, submitButton);
+
     });
   });
 };
+
+// установка активной и неактивной кнопки сабмит
+
+const isFormValid = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}
+
+function toggleButtonState(inputList, submitButton) {
+  if (isFormValid(inputList)) {
+    submitButton.disabled = true;
+    submitButton.classList.add('popup__button_disabled');
+
+  } else {
+    submitButton.disabled = false;
+    submitButton.classList.remove('popup__button_disabled');
+  }
+}
 
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.form'));
@@ -189,6 +217,8 @@ const enableValidation = () => {
 }
 
 enableValidation();
+
+
 
 
 
