@@ -1,0 +1,11 @@
+{
+  "name": "mesto_project",
+  "version": "0.0.1",
+  "description": "Проект выполнен с помощью HTML, CSS.\r Используется структура по БЭМ, grid layout, flex-box верстка.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vika Shoynkhorova",
+  "license": "ISC"
+}
