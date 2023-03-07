@@ -1,3 +1,9 @@
+import {initialCards} from '../components/cards.js';
+
+import { openPopup, closePopup } from '../components/modal.js';
+import { like, deleteCard } from '../components/card.js';
+import { showInputError, hideInputError, isValid, setEventListeners, isFormValid, toggleButtonState, enableValidation } from '../components/validate.js';
+
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
 const buttonClosePopupProfile = document.querySelector('.popup__close-icon_edit-profile');
@@ -25,16 +31,8 @@ const popupOpenedImage = document.querySelector('.popup_opened-image');
 const popupImage = document.querySelector('.popup__image');
 const closeIconOpenedImage = document.querySelector('.popup__close-image');
 const caption = document.querySelector('.popup__caption');
+const closeBtns = document.querySelectorAll('.popup__close-icon');
 
-
-// общие функции открытия и закрытия попапов
-function openPopup(selectedPopup) {
-  selectedPopup.classList.add('popup_opened');
-}
-
-function closePopup(selectedPopup) {
-  selectedPopup.classList.remove('popup_opened');
-}
 
 // Открыть попап редактирования
 
@@ -49,8 +47,6 @@ profileButton.addEventListener('click', () => {
 });
 
 //  закрытие попапов на крестик, оверлей и escape
-
-const closeBtns = document.querySelectorAll('.popup__close-icon');
 
 closeBtns.forEach((button) => {
   const selectedPopup = button.closest('.popup');
@@ -70,30 +66,22 @@ closeBtns.forEach((button) => {
     };
   });
 });
-
-// лайк
-function like(evt) {
-  evt.target.classList.toggle('element__like_active');
-}
-
 // отправить новые данные профиля
 
-function submitFormProfile (evt) {
-  
+formElement.addEventListener('submit', (evt) => {
   evt.preventDefault(); 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
+  formElement.reset();
 
   closePopup(popupEditProfile);
+});
 
-}
-formElement.addEventListener('submit', submitFormProfile);
+formElement.addEventListener('submit', () => {
 
-// удалить карточку
-
-function deleteCard(evt) {
-  evt.target.closest('.element').remove()
-}
+  const isValid = nameInput.value.length > 2 && jobInput.value.length > 2;
+  setSubmitButtonState(isValid);
+})
 
 // открыть фото
 
@@ -137,59 +125,4 @@ formNewCard.addEventListener('submit', createFormAddCard);
 
 // валидация
 
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
-  errorEl.textContent = errorMessage;
-  errorEl.classList.add('popup__input-error_active');
-};
-
-const hideInputError = (formElement, inputElement) => {
-  const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorEl.classList.remove('popup__input-error_active');
-  errorEl.textContent = '';
-};
-
-const isValid = (formElement, inputElement) => {
-  if (inputElement.validity.patternMismatch) {
-    
-    inputElement.setCustomValidity(inputElement.dataset.errorMsg);
-  } else {
-    
-    inputElement.setCustomValidity("");
-  }
-
-  if (!inputElement.validity.valid) {
-    
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-  
-    hideInputError(formElement, inputElement);
-  }
-};
-
-
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-    });
-  });
-};
-
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  formList.forEach((formElement) => {
-    setEventListeners(formElement);
-  })
-}
-
 enableValidation();
-
-
-
-
