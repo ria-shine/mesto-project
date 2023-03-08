@@ -2,7 +2,7 @@ import './pages/index.css'; // импорт главного файла стил
 import {initialCards} from './components/cards.js';
 
 import { openPopup, closePopup } from './components/modal.js';
-import { like, deleteCard, openImage } from './components/card.js';
+import { like, deleteCard } from './components/card.js';
 import { showInputError, hideInputError, isValid, setEventListeners, isFormValid, toggleButtonState, enableValidation } from './components/validate.js';
 
 const buttonEditProfile = document.querySelector('.profile__edit-button');
@@ -86,12 +86,12 @@ formElement.addEventListener('submit', () => {
 
 // открыть фото
 
-// function openImage(name, link) {
-//   popupImage.src = link;
-//   popupImage.alt = name;
-//   caption.textContent = name;
-//   openPopup(popupOpenedImage);
-// };
+function openImage(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  caption.textContent = name;
+  openPopup(popupOpenedImage);
+};
 
 // добавление карточки
 function downloadCards() {
@@ -126,11 +126,13 @@ formNewCard.addEventListener('submit', createFormAddCard);
 
 // валидация
 
-enableValidation({
+export const settings = {
   formSelector: '.form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input-error',
+  inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
-});
+}
+
+enableValidation(settings);

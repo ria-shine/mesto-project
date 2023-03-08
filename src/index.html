@@ -17,7 +17,7 @@
   <main class="main-content">
 
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="аватар">
+      <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="аватар"> 
       <!-- Имя и описание к имени -->
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -44,7 +44,7 @@
   <div class="popup popup_edit-profile">
     <div class="popup__container">
       <button class="popup__close-icon popup__close-icon_edit-profile" type="button"
-        aria-label="Закрыть окно редактирования"></button>
+        aria-label="Закрыть окно редактирования"><img src="<%=require('./images/Close_Icon.svg')%>"></button>
   
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class='form' name="form_edit" novalidate>
@@ -67,7 +67,7 @@
   <div class="popup popup_add-card">
     <div class="popup__container">
       <button class="popup__close-icon popup__close-icon_add-card" type="button"
-        aria-label="Закрыть окно добавление фото"></button>
+        aria-label="Закрыть окно добавление фото"><img src="<%=require('./images/Close_Icon.svg')%>"></button>
   
       <h2 class="popup__title">Новое место</h2>
       <form class='form' name="form_new_place" novalidate>
@@ -90,7 +90,7 @@
   <div class='popup__image-container'>
     
     <figure class='popup__figure'>
-      <button class="popup__close-icon popup__close-image" type="button" aria-label="Закрыть окно фото"></button>
+      <button class="popup__close-icon popup__close-image" type="button" aria-label="Закрыть окно фото"><img src="<%=require('./images/Close_Icon.svg')%>"></button>
       <img class="popup__image" src='.' alt=".">
       <figcaption class="popup__caption"></figcaption>
     </figure>

@@ -1,16 +1,17 @@
 // валидация
+import { settings } from "../index.js";
 
 export const showInputError = (formElement, inputElement, errorMessage) => {
   const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
+  inputElement.classList.add(settings.inputErrorClass);
   errorEl.textContent = errorMessage;
-  errorEl.classList.add('popup__input-error_active');
+  errorEl.classList.add(settings.errorClass);
 };
 
 export const hideInputError = (formElement, inputElement) => {
   const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorEl.classList.remove('popup__input-error_active');
+  inputElement.classList.remove(settings.inputErrorClass);
+  errorEl.classList.remove(settings.errorClass);
   errorEl.textContent = '';
 };
 
@@ -31,9 +32,9 @@ export const isValid = (formElement, inputElement) => {
 
 
 export const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
 
-  const submitButton = formElement.querySelector('.popup__button');
+  const submitButton = formElement.querySelector(settings.submitButtonSelector);
   toggleButtonState(inputList, submitButton);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
@@ -55,16 +56,16 @@ export const isFormValid = (inputList) => {
 export function toggleButtonState(inputList, submitButton) {
   if (isFormValid(inputList)) {
     submitButton.disabled = true;
-    submitButton.classList.add('popup__button_disabled');
+    submitButton.classList.add(settings.inactiveButtonClass);
 
   } else {
     submitButton.disabled = false;
-    submitButton.classList.remove('popup__button_disabled');
+    submitButton.classList.remove(settings.inactiveButtonClass);
   }
 }
 
 export const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
+  const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
     setEventListeners(formElement);
   })
