@@ -5,19 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
-  <link rel="shortcut icon" href="./images/favicon.ico.png">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="shortcut icon" href="./images/favicon.ico.png"> -->
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
 </head>
 <body class="page">
 
   <header class="header">
-    <img class="header__logo" src="./images/logooo.svg" alt="Логотип проекта">
+    <img class="header__logo" src="<%=require('./images/logooo.svg')%>" alt="Логотип проекта">
   </header>
 
   <main class="main-content">
 
     <section class="profile">
-      <img class="profile__avatar" src="./images/Avatar.jpg" alt="аватар">
+      <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="аватар">
       <!-- Имя и описание к имени -->
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -109,12 +109,12 @@
     </article>
   </template>
 
-<script type="module" src="./scripts/index.js"></script>
+<!-- <script type="module" src="./index.js"></script>
 <script type="module" src="./components/cards.js"></script>
 <script type="module" src="./components/card.js"></script>
 <script type="module" src="./components/util.js"></script>
 <script type="module" src="./components/validate.js"></script>
-<script type="module" src="./components/modal.js"></script>
+<script type="module" src="./components/modal.js"></script> -->
 
 </body>
 </html>

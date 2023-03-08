@@ -16,9 +16,9 @@ export function deleteCard(evt) {
 
 // // открыть фото
 
-// export function openImage(name, link) {
-//   popupImage.src = link;
-//   popupImage.alt = name;
-//   caption.textContent = name;
-//   openPopup(popupOpenedImage);
-// };
+export function openImage(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  caption.textContent = name;
+  openPopup(popupOpenedImage);
+};
