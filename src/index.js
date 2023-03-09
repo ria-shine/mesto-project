@@ -3,25 +3,21 @@ import {initialCards} from './components/cards.js';
 
 import { openPopup, closePopup } from './components/modal.js';
 import { like, deleteCard } from './components/card.js';
-import { showInputError, hideInputError, isValid, setEventListeners, isFormValid, toggleButtonState, enableValidation } from './components/validate.js';
+import { enableValidation } from './components/validate.js';
 
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_edit-profile');
-const buttonClosePopupProfile = document.querySelector('.popup__close-icon_edit-profile');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__description');
 const form = document.querySelector('.form');
-const formElement = popupEditProfile.querySelector('.form');
+const profileForm = popupEditProfile.querySelector('.form');
 const submitButton = document.querySelector('.submit_button');
 const nameInput = document.querySelector('.name_input');
 const jobInput = document.querySelector('.job_input');
 
 const profileButton = document.querySelector('.profile__button');
-const buttonClosePopupAddCard = document.querySelector('.popup__close-icon_add-card');
 const popupAddCard = document.querySelector('.popup_add-card');
-// const formNewCard = popupAddCard.querySelector('.form_new-card');
 const formNewCard = popupAddCard.querySelector('.form');
-const createButton = document.querySelector('.create_button');
 const cardInput = document.querySelector('.card_input[name = card-name]');
 const linkInput = document.querySelector('.link_input[name = card-link]');
 
@@ -30,7 +26,6 @@ const templateCard = document.querySelector('#template-card').content;
 
 const popupOpenedImage = document.querySelector('.popup_opened-image');
 const popupImage = document.querySelector('.popup__image');
-const closeIconOpenedImage = document.querySelector('.popup__close-image');
 const caption = document.querySelector('.popup__caption');
 const closeBtns = document.querySelectorAll('.popup__close-icon');
 
@@ -47,7 +42,7 @@ profileButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
-//  закрытие попапов на крестик, оверлей и escape
+//  закрытие попапов на крестик, оверлей
 
 closeBtns.forEach((button) => {
   const selectedPopup = button.closest('.popup');
@@ -55,13 +50,7 @@ closeBtns.forEach((button) => {
     closePopup(selectedPopup);
   });
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
-      closePopup(selectedPopup);
-    };
-  });
-
-  document.addEventListener('click', (evt) => {
+  selectedPopup.addEventListener('click', (evt) => {
     if (evt.target.classList.remove('popup_opened')) {
       closePopup(selectedPopup);
     };
@@ -69,20 +58,13 @@ closeBtns.forEach((button) => {
 });
 // отправить новые данные профиля
 
-formElement.addEventListener('submit', (evt) => {
+profileForm.addEventListener('submit', (evt) => {
   evt.preventDefault(); 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  formElement.reset();
 
   closePopup(popupEditProfile);
 });
-
-formElement.addEventListener('submit', () => {
-
-  const isValid = nameInput.value.length > 2 && jobInput.value.length > 2;
-  setSubmitButtonState(isValid);
-})
 
 // открыть фото
 

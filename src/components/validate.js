@@ -1,21 +1,21 @@
 // валидация
 import { settings } from "../index.js";
 
-export const showInputError = (formElement, inputElement, errorMessage) => {
+export const showInputError = (formElement, inputElement, errorMessage, settings) => {
   const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(settings.inputErrorClass);
   errorEl.textContent = errorMessage;
   errorEl.classList.add(settings.errorClass);
 };
 
-export const hideInputError = (formElement, inputElement) => {
+export const hideInputError = (formElement, inputElement, settings) => {
   const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(settings.inputErrorClass);
   errorEl.classList.remove(settings.errorClass);
   errorEl.textContent = '';
 };
 
-export const isValid = (formElement, inputElement) => {
+export const isValid = (formElement, inputElement, settings) => {
   if (inputElement.validity.patternMismatch) {
     inputElement.setCustomValidity(inputElement.dataset.errorMsg);
   } else {
@@ -23,23 +23,31 @@ export const isValid = (formElement, inputElement) => {
   }
 
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, settings);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, settings);
   }
 };
 
 
 
-export const setEventListeners = (formElement) => {
+export const setEventListeners = (formElement, settings) => {
   const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
-
   const submitButton = formElement.querySelector(settings.submitButtonSelector);
-  toggleButtonState(inputList, submitButton);
+
+  toggleButtonState(inputList, submitButton, settings);
+
+  formElement.addEventListener('reset', () => {
+    // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+    setTimeout(() => {
+      toggleButtonState(inputList, submitButton, settings);
+    }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+  });
+
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      toggleButtonState(inputList, submitButton);
+      isValid(formElement, inputElement, settings);
+      toggleButtonState(inputList, submitButton, settings);
 
     });
   });
@@ -53,7 +61,7 @@ export const isFormValid = (inputList) => {
   })
 }
 
-export function toggleButtonState(inputList, submitButton) {
+export function toggleButtonState(inputList, submitButton, settings) {
   if (isFormValid(inputList)) {
     submitButton.disabled = true;
     submitButton.classList.add(settings.inactiveButtonClass);
@@ -64,9 +72,9 @@ export function toggleButtonState(inputList, submitButton) {
   }
 }
 
-export const enableValidation = () => {
+export const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
-    setEventListeners(formElement);
+    setEventListeners(formElement, settings);
   })
 }
