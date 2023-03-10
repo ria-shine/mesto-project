@@ -51,7 +51,7 @@ closeBtns.forEach((button) => {
   });
 
   selectedPopup.addEventListener('click', (evt) => {
-    if (evt.target.classList.remove('popup_opened')) {
+    if (evt.target.classList.contains('popup_opened')) {
       closePopup(selectedPopup);
     };
   });
