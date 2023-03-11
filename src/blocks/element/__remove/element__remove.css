@@ -1,4 +1,5 @@
 .element__remove {
+  /* display: none; */
   background-image: url(../../../images/button-remove.svg);
   background-position: center;
   background-repeat: no-repeat;

@@ -17,6 +17,7 @@
 
     <section class="profile">
       <img class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>" alt="аватар"> 
+      <button class="profile__avatar-button" type="button"></button>
       <!-- Имя и описание к имени -->
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -97,13 +98,32 @@
   </div>
 </div>
 
+<div class='popup popup_update-avatar'>
+  <div class="popup__container">
+    <button class="popup__close-icon popup__close-icon_update-avatar" type="button"
+      aria-label="Закрыть окно редактирования аватара"><img src="<%=require('./images/Close_Icon.svg')%>"></button>
+    <h2 class="popup__title">Обновить аватар</h2>
+    <form class='form' name="form_new_avatar" novalidate>
+      <fieldset class="form_set form_new_avatar">
+        <input id="input_avatar" class="popup__input avatar_input" type='url' name="avatar" placeholder="Ссылка на фото"
+          value="" required>
+        <span class="input_avatar-error popup__input-error"></span>
+        <button class="popup__button avatar_button" type="submit">Сохранить</button>
+      </fieldset>
+    </form>
+  </div>
+</div>
+
   <template id="template-card">
     <article class="element">
       <button class="element__remove"></button>
       <img class="element__image" src="." alt=".">
       <div class="element__container">
         <h2 class="element__heading"></h2>
-        <button class="element__like" type="button" aria-label="Оценить"></button>
+        <div class="element__like-container">
+          <button class="element__like" type="button" aria-label="Оценить"></button>
+          <p class="element__like-counter"></p>
+        </div>
       </div>
     </article>
   </template>
