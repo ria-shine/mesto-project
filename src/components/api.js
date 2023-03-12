@@ -21,7 +21,9 @@ export function getUserInfo() {
     method: 'GET',
     headers: info.headers
   })
-    .then(res => checkResponse(res));
+    .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // Загрузка карточек
@@ -31,7 +33,9 @@ export function getInitialCards() {
     method: 'GET',
     headers: info.headers
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // редактирование профиля
@@ -45,7 +49,9 @@ export function editProfile(nameProfile, jobProfile) {
       about: jobProfile
     })
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // добавление новой карточки
@@ -59,7 +65,9 @@ export function addNewCard(cardName, cardLink) {
       link: cardLink
     })
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // удаление карточек 
@@ -68,8 +76,11 @@ export function removeCard(idCard) {
   return fetch(`${info.baseUrl}/cards/${idCard}`, {
     method: 'DELETE',
     headers: info.headers
+    
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // лайк
@@ -79,7 +90,9 @@ export function pushLike(idCard){
     method: 'PUT',
     headers: info.headers
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 export function removeLike(idCard) {
@@ -87,7 +100,9 @@ export function removeLike(idCard) {
     method: 'DELETE',
     headers: info.headers
   })
-  .then(res => checkResponse(res));
+  .then((res) => {
+    return checkResponse(res);
+  })
 }
 
 // аватар
@@ -100,5 +115,7 @@ export const updateAvatar = (avatarProfile) => {
       avatar: avatarProfile
     })
   })
-  .then(res => checkResponse(res))
+  .then((res) => {
+    return checkResponse(res);
+  })
 }

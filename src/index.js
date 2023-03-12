@@ -44,6 +44,7 @@ Promise.all([getUserInfo(), getInitialCards()])
   .then(([user, cards]) => {
     profileName.textContent = user.name;
     profileJob.textContent = user.about;
+    profileAvatar.src = user.avatar;
     userProfile = user._id;
 
     cards.forEach((card) => {
@@ -53,7 +54,6 @@ Promise.all([getUserInfo(), getInitialCards()])
   .catch((err) => {
     console.log(err);
   })
-
 
 // Открыть попап редактирования
 
@@ -179,6 +179,8 @@ function addCard(name, link, likes, owner, idCard) {
         console.log(err);
       })
   });
+
+  
 
 
 
