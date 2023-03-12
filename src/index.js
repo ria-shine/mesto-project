@@ -41,11 +41,6 @@ const buttonEditAvatar = document.querySelector('.profile__avatar-button');
 
 let userProfile;
 
-function renderCards(cards, id) {
-  cards.forEach((card) => {
-    elementsContainer.prepend(addCard(card, id));
-  })
-}
 
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([user, cards]) => {
@@ -112,6 +107,15 @@ profileForm.addEventListener('submit', (evt) => {
   
 });
 
+// открыть фото
+
+function openImage(name, link) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  caption.textContent = name;
+  openPopup(popupOpenedImage);
+};
+
 
 function addCard(newCard, userProfile) {
   const card = templateCard.querySelector('.element').cloneNode(true);
@@ -169,14 +173,7 @@ function addCard(newCard, userProfile) {
   });
 
 
-  elementImage.addEventListener('click', () => {
-    
-      popupImage.src = elementImage.src;
-      popupImage.alt = elementImage.alt;
-      caption.textContent = elementImage.alt;
-      openPopup(popupOpenedImage);
-    
-  });
+  elementImage.addEventListener('click', () => openImage(newCard.name, newCard.link));
 
   return card;
 }
@@ -199,6 +196,14 @@ function createFormAddCard (evt) {
 
 }
 
+formNewCard.addEventListener('submit', createFormAddCard);
+
+function renderCards(cards, id) {
+  cards.forEach((card) => {
+    elementsContainer.prepend(addCard(card, id));
+  })
+}
+
 // function createFormAddCard (evt) {
 //   evt.preventDefault();
 //   submitButtonCard.textContent ='сохранение...'
@@ -216,7 +221,7 @@ function createFormAddCard (evt) {
 //   });
 
 // }
-formNewCard.addEventListener('submit', createFormAddCard);
+
 
 // аватар 
 
