@@ -85,7 +85,7 @@ export function removeCard(idCard) {
 
 // лайк
 
-export function pushLike(idCard){
+export function pushLike(idCard) {
   return fetch(`${info.baseUrl}/cards/likes/${idCard}`, {
     method: 'PUT',
     headers: info.headers

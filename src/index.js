@@ -40,16 +40,21 @@ const buttonEditAvatar = document.querySelector('.profile__avatar-button');
 // export {templateCard, }
 
 let userProfile;
+
+function renderCards(cards, id) {
+  cards.forEach((card) => {
+    elementsContainer.prepend(addCard(card, id));
+  })
+}
+
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([user, cards]) => {
     profileName.textContent = user.name;
     profileJob.textContent = user.about;
     profileAvatar.src = user.avatar;
     userProfile = user._id;
+    renderCards(cards, userProfile);
 
-    cards.forEach((card) => {
-      elementsContainer.prepend(addCard(card.name, card.link, card.likes, card._id, card.owner._id));
-    })
   })
   .catch((err) => {
     console.log(err);
@@ -108,47 +113,51 @@ profileForm.addEventListener('submit', (evt) => {
 });
 
 
-// открыть фото
-
-function openImage(name, link) {
-  popupImage.src = link;
-  popupImage.alt = name;
-  caption.textContent = name;
-  openPopup(popupOpenedImage);
-};
-
-// // добавление карточки
-// function downloadCards() {
-//   initialCards.forEach(function(card) {
-//     elementsContainer.prepend(addCard(card.name, card.link))
-//   });
-// }
-// downloadCards();
-
-function addCard(name, link, likes, owner, idCard) {
+function addCard(newCard, userProfile) {
   const card = templateCard.querySelector('.element').cloneNode(true);
   const elementImage = card.querySelector('.element__image');
   const elementHeading = card.querySelector('.element__heading');
   const likesCounter = card.querySelector('.element__like-counter');
-  likesCounter.textContent = likes.length;
-  elementImage.src = link;
-  elementImage.alt = name;
-  elementHeading.textContent = name;
+
+  likesCounter.textContent = newCard.likes.length;
+  elementImage.src = newCard.link;
+  elementImage.alt = newCard.name;
+  elementHeading.textContent = newCard.name;
   
+  if (newCard.owner._id === userProfile) {
+    
+    card.querySelector('.element__remove').addEventListener('click', (evt) => {
+      removeCard(newCard._id)
+        .then(() => {
+          evt.target.closest('.element').remove();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    });
+  } else {
+    card.querySelector('.element__remove').classList.add('element__remove-inactive');
+  }
+
+  newCard.likes.forEach((user) => {
+    if(user._id === userProfile) {
+      card.querySelector('.element__like').classList.add('element__like_active');
+    }
+  })
 
   card.querySelector('.element__like').addEventListener('click', (evt) => {
-    if (!evt.target.classList.contains('element__like_active')) {
-      pushLike(idCard)
+    if (!(evt.target.classList.contains('element__like_active'))) {
+      pushLike(newCard._id)
       .then((res) => {
         likesCounter.textContent = res.likes.length;
-        evt.target.classList.toggle('element__like_active');
+        evt.target.classList.add('element__like_active');
       })
       .catch((err) => {
         console.log(err);
       })
     }
     else {
-      removeLike(idCard)
+      removeLike(newCard._id)
       .then((res) => {
         likesCounter.textContent = res.likes.length;
         evt.target.classList.remove('element__like_active');
@@ -159,32 +168,15 @@ function addCard(name, link, likes, owner, idCard) {
     }
   });
 
-  likes.forEach((user) => {
-    if(user._id === userProfile) {
-      card.querySelector('.element__like').classList.add('element__like_active');
-    }
-  })
 
-
-  if (owner !== userProfile) {
-    card.querySelector('.element__remove').classList.add('element__remove-inactive');
-  }
-
-  card.querySelector('.element__remove').addEventListener('click', (evt) => {
-    removeCard(idCard)
-      .then(() => {
-        evt.target.closest('.element').remove();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+  elementImage.addEventListener('click', () => {
+    
+      popupImage.src = elementImage.src;
+      popupImage.alt = elementImage.alt;
+      caption.textContent = elementImage.alt;
+      openPopup(popupOpenedImage);
+    
   });
-
-  
-
-
-
-  elementImage.addEventListener('click', () => openImage(name, link));
 
   return card;
 }
@@ -192,11 +184,11 @@ function addCard(name, link, likes, owner, idCard) {
 function createFormAddCard (evt) {
   evt.preventDefault();
   submitButtonCard.textContent ='сохранение...'
-  return addNewCard(cardInput.value, linkInput.value)
-  .then((res) => {
+  addNewCard(cardInput.value, linkInput.value)
+  .then((newCard) => {
     closePopup(popupAddCard);
     formNewCard.reset();
-    elementsContainer.prepend(addCard(res.name, res.link, res.likes, res._id, res.owner.id)); //card.name, card.link, card.likes, card._id, card.owner._id
+    elementsContainer.prepend(addCard(newCard, newCard.owner._id)); //card.name, card.link, card.likes, card._id, card.owner._id
   }) 
   .catch((err) => {
     console.log(err);
@@ -206,6 +198,24 @@ function createFormAddCard (evt) {
   });
 
 }
+
+// function createFormAddCard (evt) {
+//   evt.preventDefault();
+//   submitButtonCard.textContent ='сохранение...'
+//   return addNewCard(cardInput.value, linkInput.value)
+//   .then((res) => {
+//     closePopup(popupAddCard);
+//     formNewCard.reset();
+//     elementsContainer.prepend(addCard(res.name, res.link, res.likes, res._id, res.owner._id)); //card.name, card.link, card.likes, card._id, card.owner._id
+//   }) 
+//   .catch((err) => {
+//     console.log(err);
+//   })
+//   .finally(() => {
+//     submitButtonProfile.textContent ='Сохранить';
+//   });
+
+// }
 formNewCard.addEventListener('submit', createFormAddCard);
 
 // аватар 
