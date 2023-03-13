@@ -1,5 +1,4 @@
 // валидация
-import { settings } from "../index.js";
 
 export const showInputError = (formElement, inputElement, errorMessage, settings) => {
   const errorEl = formElement.querySelector(`.${inputElement.id}-error`);
